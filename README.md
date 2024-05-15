@@ -1,1 +1,3 @@
-# KentRamriez-FINAL_LAB_EXAM_CS1201_RAMIREZ
+# FINAL LAB EXAM
+by Ramirez, Kent Ian V. 
+CS - 1201
