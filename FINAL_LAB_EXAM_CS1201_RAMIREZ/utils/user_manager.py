@@ -4,6 +4,9 @@ from utils.user import User
 class UserManager:
     def __init__(self):
         self.users = []
+        self.data_directory = "data"
+        self.database_file = os.path.join(self.data_directory, "databaseUsers.txt")
+        self.check_directory_existence()
         self.load_users()
 
     def register(self):
@@ -18,7 +21,7 @@ class UserManager:
 
             password = input("Enter your password (8 characters minimum): ")
             if not password:
-                return
+                continue
             if not self.validate_password(password):
                 continue
 
@@ -48,14 +51,18 @@ class UserManager:
                 return True
         return False
 
+    def check_directory_existence(self):
+        if not os.path.exists(self.data_directory):
+            os.makedirs(self.data_directory)
+
     def save_users(self):
-        with open("databaseUsers.txt", "w") as file:
+        with open(self.database_file, "w") as file:
             for user in self.users:
                 file.write(f"{user.username},{user.password}\n")
 
     def load_users(self):
-        if os.path.exists("databaseUsers.txt"):
-            with open("databaseUsers.txt", "r") as file:
+        if os.path.exists(self.database_file):
+            with open(self.database_file, "r") as file:
                 for line in file:
                     username, password = line.strip().split(',')
                     self.users.append(User(username, password))
@@ -66,11 +73,11 @@ class UserManager:
             print("\nAccount Login (Leave inputs empty to return.)")
             username = input("Please enter your username: ")
             if not username:
-                return None
+                return
             
             password = input("Enter your password: ")
             if not password:
-                return None
+                continue
             
             for user in self.users:
                 if user.username == username and user.password == password:
@@ -78,4 +85,4 @@ class UserManager:
                     return user
             else:
                 input("\nInvalid username or password. Press enter to try again...")
-                return
+                continue

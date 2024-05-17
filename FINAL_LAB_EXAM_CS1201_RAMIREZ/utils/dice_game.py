@@ -15,7 +15,7 @@ class DiceGame:
         while True:
             stage_score = 0
             stage_won = 0
-            os.system('cls')
+            os.system('cls' if os.name == 'nt' else 'clear')
 
             print(f"\nSTAGE {current_stage}\n")
 
@@ -44,7 +44,7 @@ class DiceGame:
             print(f"\nYou now have a total of {total_score} points!")
 
             if stage_won == 0:
-                print("\nGame Over. You lost on every round and fell off the stage.")
+                input("\nGame Over. You lost on every round and fell off the stage. Press enter to go back to game menu...")
                 break
 
             if total_stage_wins == 3:
@@ -53,7 +53,6 @@ class DiceGame:
                 print(f"\nYou now have a total of {total_score} points!")
 
             continue_choice = input("\nDo you wish to keep playing unto the next stage? (1 for yes, 0 for no): ")
-            os.system('cls' if os.name == 'nt' else 'clear')
 
             while continue_choice not in ('1', '0'):
                 continue_choice = input("Invalid Choice. Do you wish to keep playing unto the next stage? (1 for yes, 0 for no): ")
@@ -65,6 +64,8 @@ class DiceGame:
 
         print(f"\nTotal Points Earned: {total_score}")
         print(f"\nRounds Won: {total_stage_wins}")
+
+        os.system('cls' if os.name == 'nt' else 'clear')
 
         score_manager = ScoreSystem()
         score_manager.save_scores(user.username, total_score, total_stage_wins, datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
@@ -80,6 +81,8 @@ class DiceGame:
             for i, score in enumerate(scores[:10], 1):
                 print(f"{i}. {score['username']}: Total Score : {score['score']}, Rounds Won: {score['wins']}, Date and Time Acquired: {score['date_achieved']}")
         else:
+            os.system('cls')
+            print("\nTop 10 Leading Scores:\n")
             print("No scores recorded yet.")
 
         input("\nPress Enter to go back to the game menu...")
