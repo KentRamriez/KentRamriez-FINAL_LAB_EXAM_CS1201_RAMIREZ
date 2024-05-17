@@ -79,7 +79,7 @@ class DiceGame:
             os.system('cls')
             print("\nTop 10 Leading Scores:\n")
             for i, score in enumerate(scores[:10], 1):
-                print(f"{i}. {score['username']}: Total Score : {score['score']}, Rounds Won: {score['wins']}, Date and Time Acquired: {score['date_achieved']}")
+                print(f"{i}. {score['username']} - Total Score : {score['score']}, Rounds Won: {score['wins']}, Date and Time Acquired: {score['date_achieved']}")
         else:
             os.system('cls')
             print("\nTop 10 Leading Scores:\n")
